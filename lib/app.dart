@@ -1,36 +1,32 @@
+import 'dart:math';
+
+import 'package:bloc_tutorial/cubits/theme/theme_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class App extends StatelessWidget {
-  const App({super.key});
+  const App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return (MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: context.watch<ThemeCubit>().state.appTheme == AppTheme.light
+          ? ThemeData.light()
+          : ThemeData.dark(),
       home: Scaffold(
         appBar: AppBar(
-          title: Text("Learning BloC"),
+          title: Text('Theming using Cubit'),
         ),
-        body: const Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[Center(child: Text('The counter value is: '))]),
-        floatingActionButton: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            FloatingActionButton(
-              onPressed: () => {},
-              child: const Icon(Icons.remove),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            FloatingActionButton(
-              onPressed: () => {},
-              child: const Icon(Icons.add),
-            )
-          ],
+        body: Center(
+          child: ElevatedButton(
+              onPressed: () {
+                var randInt = Random().nextInt(10);
+                context.read<ThemeCubit>().changeTheme(randInt);
+              },
+              child: Text('Change Theme')),
         ),
       ),
-    );
+    ));
   }
 }
