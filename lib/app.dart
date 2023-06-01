@@ -6,29 +6,43 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'cubit2cubit',
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
       home: Scaffold(
-        appBar: AppBar(
-          title: Text("Learning BloC"),
-        ),
-        body: const Column(
+        backgroundColor: Colors.white,
+        body: Center(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[Center(child: Text('The counter value is: '))]),
-        floatingActionButton: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            FloatingActionButton(
-              onPressed: () => {},
-              child: const Icon(Icons.remove),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            FloatingActionButton(
-              onPressed: () => {},
-              child: const Icon(Icons.add),
-            )
-          ],
+            children: [
+              ElevatedButton(
+                child: Text(
+                  'Change Color',
+                  style: TextStyle(fontSize: 24.0),
+                ),
+                onPressed: () {},
+              ),
+              SizedBox(height: 20.0),
+              Text(
+                '0',
+                style: TextStyle(
+                  fontSize: 52.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(height: 20.0),
+              ElevatedButton(
+                child: Text(
+                  'Increment Counter',
+                  style: TextStyle(fontSize: 24.0),
+                ),
+                onPressed: () {},
+              ),
+            ],
+          ),
         ),
       ),
     );
