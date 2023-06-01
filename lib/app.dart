@@ -1,36 +1,41 @@
+import 'dart:math';
+
+import 'package:bloc_tutorial/blocs/theme/theme_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Learning BloC"),
-        ),
-        body: const Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[Center(child: Text('The counter value is: '))]),
-        floatingActionButton: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            FloatingActionButton(
-              onPressed: () => {},
-              child: const Icon(Icons.remove),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            FloatingActionButton(
-              onPressed: () => {},
-              child: const Icon(Icons.add),
-            )
-          ],
-        ),
-      ),
+    return BlocBuilder<ThemeBloc, ThemeState>(
+      builder: (context, state) {
+        return MaterialApp(
+          title: 'Event Payload',
+          debugShowCheckedModeBanner: false,
+          theme: state.appTheme == AppTheme.light
+              ? ThemeData.light()
+              : ThemeData.dark(),
+          home: Scaffold(
+              appBar: AppBar(
+                title: Text("Theme"),
+              ),
+              body: Center(
+                child: ElevatedButton(
+                    onPressed: () {
+                      int randInt = Random().nextInt(10);
+                      context
+                          .read<ThemeBloc>()
+                          .add(ChangeThemeEvent(randInt: randInt));
+                    },
+                    child: Text(
+                      'Change Theme',
+                      style: TextStyle(fontSize: 24),
+                    )),
+              )),
+        );
+      },
     );
   }
 }
