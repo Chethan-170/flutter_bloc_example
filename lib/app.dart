@@ -9,33 +9,29 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ThemeBloc, ThemeState>(
-      builder: (context, state) {
-        return MaterialApp(
-          title: 'Event Payload',
-          debugShowCheckedModeBanner: false,
-          theme: state.appTheme == AppTheme.light
-              ? ThemeData.light()
-              : ThemeData.dark(),
-          home: Scaffold(
-              appBar: AppBar(
-                title: Text("Theme"),
-              ),
-              body: Center(
-                child: ElevatedButton(
-                    onPressed: () {
-                      int randInt = Random().nextInt(10);
-                      context
-                          .read<ThemeBloc>()
-                          .add(ChangeThemeEvent(randInt: randInt));
-                    },
-                    child: Text(
-                      'Change Theme',
-                      style: TextStyle(fontSize: 24),
-                    )),
-              )),
-        );
-      },
+    return MaterialApp(
+      title: 'Event Payload',
+      debugShowCheckedModeBanner: false,
+      theme: context.watch<ThemeBloc>().state.appTheme == AppTheme.light
+          ? ThemeData.light()
+          : ThemeData.dark(),
+      home: Scaffold(
+          appBar: AppBar(
+            title: Text("Theme"),
+          ),
+          body: Center(
+            child: ElevatedButton(
+                onPressed: () {
+                  int randInt = Random().nextInt(10);
+                  context
+                      .read<ThemeBloc>()
+                      .add(ChangeThemeEvent(randInt: randInt));
+                },
+                child: Text(
+                  'Change Theme',
+                  style: TextStyle(fontSize: 24),
+                )),
+          )),
     );
   }
 }
