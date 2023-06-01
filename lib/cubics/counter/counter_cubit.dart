@@ -7,10 +7,10 @@ class CounterCubit extends Cubit<CounterState> {
   CounterCubit() : super(CounterState.initial());
 
   void increment() {
-    emit(state.copyWith(counter: state.counter + 2));
+    emit(state.copyWith(counter: state.counter + 1));
   }
 
   void decrement() {
-    emit(state.copyWith(counter: state.counter - 2));
+    emit(state.copyWith(counter: state.counter - 1));
   }
 }
