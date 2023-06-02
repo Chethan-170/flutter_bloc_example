@@ -1,4 +1,7 @@
+import 'package:bloc_tutorial/cubits/color/color_cubit.dart';
+import 'package:bloc_tutorial/cubits/counter/counter_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -12,7 +15,7 @@ class App extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: context.watch<ColorCubit>().state.color,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -22,11 +25,13 @@ class App extends StatelessWidget {
                   'Change Color',
                   style: TextStyle(fontSize: 24.0),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  context.read<ColorCubit>().changeColor();
+                },
               ),
               SizedBox(height: 20.0),
               Text(
-                '0',
+                "${BlocProvider.of<CounterCubit>(context, listen: true).state.counter}",
                 style: TextStyle(
                   fontSize: 52.0,
                   fontWeight: FontWeight.bold,
@@ -39,7 +44,9 @@ class App extends StatelessWidget {
                   'Increment Counter',
                   style: TextStyle(fontSize: 24.0),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  BlocProvider.of<CounterCubit>(context).changeCounter();
+                },
               ),
             ],
           ),
