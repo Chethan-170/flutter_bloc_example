@@ -6,9 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   runApp(MultiBlocProvider(providers: [
+    BlocProvider(create: (context) => CounterCubit()),
     BlocProvider(create: (context) => ColorCubit()),
-    BlocProvider(
-        create: (context) =>
-            CounterCubit(colorCubit: context.read<ColorCubit>()))
   ], child: App()));
 }

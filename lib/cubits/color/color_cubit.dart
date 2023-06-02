@@ -8,7 +8,6 @@ class ColorCubit extends Cubit<ColorState> {
   ColorCubit() : super(ColorState.initial());
 
   void changeColor() {
-    print(state);
     if (state.color == Colors.red) {
       emit(state.copyWith(color: Colors.green));
     } else if (state.color == Colors.green) {
