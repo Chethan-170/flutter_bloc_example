@@ -5,12 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
-  runApp(BlocProvider<ColorCubit>(
-    create: (context) => ColorCubit(),
-    child: BlocProvider<CounterCubit>(
-      create: (context) =>
-          CounterCubit(colorCubit: BlocProvider.of<ColorCubit>(context)),
-      child: App(),
-    ),
-  ));
+  runApp(MultiBlocProvider(providers: [
+    BlocProvider(create: (context) => ColorCubit()),
+    BlocProvider(
+        create: (context) =>
+            CounterCubit(colorCubit: context.read<ColorCubit>()))
+  ], child: App()));
 }
