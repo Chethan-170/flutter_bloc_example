@@ -1,3 +1,4 @@
+import 'package:bloc_tutorial/show_me_counter.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {
@@ -6,31 +7,35 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Learning BloC"),
-        ),
-        body: const Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[Center(child: Text('The counter value is: '))]),
-        floatingActionButton: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            FloatingActionButton(
-              onPressed: () => {},
-              child: const Icon(Icons.remove),
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return ShowMeCounter();
+                    }));
+                  },
+                  child: Text(
+                    'Show Me Counter',
+                    style: TextStyle(fontSize: 20.0),
+                  ),
+                ),
+                SizedBox(height: 20.0),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text(
+                    'Increment Counter',
+                    style: TextStyle(fontSize: 20.0),
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(
-              width: 10,
-            ),
-            FloatingActionButton(
-              onPressed: () => {},
-              child: const Icon(Icons.add),
-            )
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 }
