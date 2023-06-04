@@ -1,7 +1,6 @@
 import 'package:bloc_tutorial/blocs/counter/counter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'other_page.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -14,40 +13,19 @@ class App extends StatelessWidget {
         appBar: AppBar(
           title: Text("Learning BloC"),
         ),
-        body: BlocListener<CounterBloc, CounterState>(
-          listener: (context, state) {
-            if (state.counter == 3) {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    content: Text('counter is ${state.counter}'),
-                  );
-                },
-              );
-            } else if (state.counter == -1) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) {
-                  return OtherPage();
-                }),
-              );
-            }
-          },
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Center(
-                    child: Text(
-                  'The counter value is : ${context.watch<CounterBloc>().state.counter}',
-                  style: TextStyle(
-                      fontSize:
-                          context.select((CounterBloc c) => c.state.counter > 0)
-                              ? 32
-                              : 16),
-                )),
-              ]),
-        ),
+        body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Center(
+                  child: Text(
+                'The counter value is : ${context.watch<CounterBloc>().state.counter}',
+                style: TextStyle(
+                    fontSize:
+                        context.select((CounterBloc c) => c.state.counter > 0)
+                            ? 32
+                            : 16),
+              )),
+            ]),
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
